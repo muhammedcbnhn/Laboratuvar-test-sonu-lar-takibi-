@@ -12,7 +12,6 @@ public class LaboratuvarApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Dosya yolunu src kök dizinine göre güncelledik (view/ kaldırıldı)
             URL fxmlLocation = getClass().getResource("/laboratuvar_arayuzu.fxml");
 
             if (fxmlLocation == null) {
@@ -22,8 +21,7 @@ public class LaboratuvarApp extends Application {
 
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
 
-            // VBox yerine Parent kullanmak daha güvenlidir,
-            // FXML'deki en dış eleman ne olursa olsun hata almazsın.
+            
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -39,4 +37,5 @@ public class LaboratuvarApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }
