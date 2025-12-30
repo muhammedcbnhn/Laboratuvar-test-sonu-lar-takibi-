@@ -1,0 +1,51 @@
+/* Ana Arka Plan */
+.root {
+    -fx-background-color: #f5f6fa;
+    -fx-font-family: "Segoe UI", Arial;
+}
+
+/* TextField Tasarımı (Giriş kutuları) */
+.text-field {
+    -fx-background-radius: 5;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+/* Mavi Butonlar (+ Sonuç Ekle, Sil vb.) */
+.button {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3498db;
+}
+
+/* Tablo Genel Görünümü */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #dcdde1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+/* Tablo Başlıkları (Koyu Gri Kısım) */
+.table-view .column-header {
+    -fx-background-color: #34495e; /* Görseldeki koyu ton */
+    -fx-padding: 10;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Tablo Satırları Seçildiğinde */
+.table-row-cell:selected {
+    -fx-background-color: #dcdde1;
+}
