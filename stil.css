@@ -1,10 +1,13 @@
-/* Ana Arka Plan */
+
 .root {
     -fx-background-color: #f5f6fa;
     -fx-font-family: "Segoe UI", Arial;
+    
+    -fx-selection-bar: #E0F7FA; 
+    -fx-selection-bar-non-focused: #E0F7FA;
 }
 
-/* TextField Tasarımı */
+
 .text-field {
     -fx-background-radius: 5;
     -fx-border-color: #dcdde1;
@@ -12,7 +15,7 @@
     -fx-padding: 5;
 }
 
-/* Mavi Butonlar */
+
 .button {
     -fx-background-color: #2980b9;
     -fx-text-fill: white;
@@ -26,17 +29,18 @@
     -fx-background-color: #3498db;
 }
 
-/* Tablo Genel Görünümü */
+
 .table-view {
     -fx-background-color: white;
     -fx-border-color: #dcdde1;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
+    -fx-font-size: 14 px;
 }
 
-/* Tablo Başlıkları */
+
 .table-view .column-header {
-    -fx-background-color: #34495e; /* Görseldeki koyu ton */
+    -fx-background-color: #34495e; 
     -fx-padding: 10;
 }
 
@@ -45,8 +49,17 @@
     -fx-font-weight: bold;
 }
 
-/* Tablo Satırları Seçildiğinde */
-.table-row-cell:selected {
-    -fx-background-color: #dcdde1;
 
+
+
+.table-row-cell:selected {
+    -fx-background-color: #E0F7FA; 
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+    -fx-text-fill: black; 
+}
+
+
+.table-row-cell:hover {
+    -fx-background-color: #FFF9C4; 
 }
