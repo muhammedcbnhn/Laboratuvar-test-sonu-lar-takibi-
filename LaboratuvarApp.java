@@ -1,4 +1,3 @@
-package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,7 @@ public class LaboratuvarApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+
             URL fxmlLocation = getClass().getResource("/laboratuvar_arayuzu.fxml");
 
             if (fxmlLocation == null) {
@@ -21,7 +21,7 @@ public class LaboratuvarApp extends Application {
 
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
 
-            
+
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -37,5 +37,5 @@ public class LaboratuvarApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
+
