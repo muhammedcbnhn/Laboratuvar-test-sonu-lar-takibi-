@@ -1,12 +1,10 @@
-package controller;
-
-import model.TestSonucu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,23 +36,79 @@ public class LaboratuvarController {
     public void initialize() {
         sonuclarListesi = FXCollections.observableArrayList();
 
+
         colTestAdi.setCellValueFactory(new PropertyValueFactory<>("testAdi"));
         colHastaAdi.setCellValueFactory(new PropertyValueFactory<>("hastaAdi"));
         colSonucDegeri.setCellValueFactory(new PropertyValueFactory<>("sonucDegeri"));
         colReferansAraligi.setCellValueFactory(new PropertyValueFactory<>("referansAraligi"));
         colBirim.setCellValueFactory(new PropertyValueFactory<>("birim"));
+        
+
         colDurum.setCellValueFactory(new PropertyValueFactory<>("durum"));
+        
+        colDurum.setCellFactory(column -> {
+            return new TableCell<TestSonucu, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (empty || getIndex() >= getTableView().getItems().size()) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+
+                        TestSonucu mevcutSatir = getTableView().getItems().get(getIndex());
+                        
+
+                        String dogruDurum = durumHesapla(mevcutSatir.getSonucDegeri(), mevcutSatir.getReferansAraligi());
+                        setText(dogruDurum);
+
+
+                        if (dogruDurum.contains("Düşük") || dogruDurum.contains("Yüksek")) {
+             
+                            setStyle("-fx-text-fill: red; -fx-font-weight: bold;"); 
+                        
+                        } else if (dogruDurum.contains("Normal")) {
+                 
+                            setStyle("-fx-text-fill: green; -fx-font-weight: bold;"); 
+                        
+                        } else {
+  
+                            setStyle("-fx-text-fill: black;");
+                        }
+                    }
+                }
+            };
+        });
 
         tableViewSonuclar.setItems(sonuclarListesi);
-
-        verileriYukle();
+        verileriYukle(); 
 
         if (sonuclarListesi.isEmpty()) {
             sonuclarListesi.add(new TestSonucu("Hemoglobin", "Ayşe Yılmaz", "13.5", "12.0-15.0", "g/dL"));
-            sonuclarListesi.add(new TestSonucu("Glukoz", "Ali Veli", "110", "70-100", "mg/dL"));
             verileriKaydet();
         }
         lblDurumMesaji.setText("Hazır.");
+    }
+
+  
+    private String durumHesapla(String sonucStr, String referansStr) {
+        try {
+            if (sonucStr == null || sonucStr.trim().isEmpty()) return "Belirsiz";
+            double sonuc = Double.parseDouble(sonucStr.trim().replace(",", ".")); 
+            
+            if (referansStr == null || !referansStr.contains("-")) return "Belirsiz";
+            String[] parcalar = referansStr.split("-");
+            double min = Double.parseDouble(parcalar[0].trim());
+            double max = Double.parseDouble(parcalar[1].trim());
+
+            if (sonuc < min) return "Düşük";
+            if (sonuc > max) return "Yüksek";
+            return "Normal";
+            
+        } catch (Exception e) {
+            return "Belirsiz"; 
+        }
     }
 
     @FXML
@@ -67,14 +121,14 @@ public class LaboratuvarController {
 
         if (t.isEmpty() || h.isEmpty() || s.isEmpty() || r.isEmpty() || b.isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("Eksik alan var.");
+            alert.setContentText("Lütfen tüm alanları doldurunuz.");
             alert.showAndWait();
             return;
         }
 
         sonuclarListesi.add(new TestSonucu(t, h, s, r, b));
         verileriKaydet(); 
-
+        
         txtTestAdi.clear(); txtHastaAdi.clear(); txtSonucDegeri.clear(); txtReferansAraligi.clear(); txtBirim.clear();
         lblDurumMesaji.setText("Eklendi.");
     }
@@ -91,8 +145,10 @@ public class LaboratuvarController {
 
     @FXML
     private void sonuclariYazdir() {
+        System.out.println("--- RAPOR ---");
         for (TestSonucu item : sonuclarListesi) {
-            System.out.println(item.getTestAdi() + " " + item.getHastaAdi() + " " + item.getSonucDegeri());
+            String d = durumHesapla(item.getSonucDegeri(), item.getReferansAraligi());
+            System.out.println(item.getTestAdi() + " -> " + d);
         }
     }
 
@@ -110,10 +166,11 @@ public class LaboratuvarController {
         if (!dosya.exists()) return;
         try (Scanner scanner = new Scanner(dosya)) {
             while (scanner.hasNextLine()) {
-                String[] p = scanner.nextLine().split(";");
-                if (p.length == 5) sonuclarListesi.add(new TestSonucu(p[0], p[1], p[2], p[3], p[4]));
+                String satir = scanner.nextLine();
+                if(satir.trim().isEmpty()) continue;
+                String[] p = satir.split(";");
+                if (p.length >= 5) sonuclarListesi.add(new TestSonucu(p[0], p[1], p[2], p[3], p[4]));
             }
         } catch (Exception e) { e.printStackTrace(); }
     }
-
 }
