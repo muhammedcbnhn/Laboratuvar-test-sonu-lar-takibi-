@@ -4,7 +4,7 @@
     -fx-font-family: "Segoe UI", Arial;
 }
 
-/* TextField Tasarımı (Giriş kutuları) */
+/* TextField Tasarımı */
 .text-field {
     -fx-background-radius: 5;
     -fx-border-color: #dcdde1;
@@ -12,7 +12,7 @@
     -fx-padding: 5;
 }
 
-/* Mavi Butonlar (+ Sonuç Ekle, Sil vb.) */
+/* Mavi Butonlar */
 .button {
     -fx-background-color: #2980b9;
     -fx-text-fill: white;
@@ -34,7 +34,7 @@
     -fx-border-radius: 5;
 }
 
-/* Tablo Başlıkları (Koyu Gri Kısım) */
+/* Tablo Başlıkları */
 .table-view .column-header {
     -fx-background-color: #34495e; /* Görseldeki koyu ton */
     -fx-padding: 10;
@@ -48,4 +48,5 @@
 /* Tablo Satırları Seçildiğinde */
 .table-row-cell:selected {
     -fx-background-color: #dcdde1;
+
 }
