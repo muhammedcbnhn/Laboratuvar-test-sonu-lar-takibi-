@@ -47,7 +47,7 @@ public class LaboratuvarController {
 
         tableViewSonuclar.setItems(sonuclarListesi);
 
-        verileriYukle(); // Program açılınca verileri yükle
+        verileriYukle();
 
         if (sonuclarListesi.isEmpty()) {
             sonuclarListesi.add(new TestSonucu("Hemoglobin", "Ayşe Yılmaz", "13.5", "12.0-15.0", "g/dL"));
@@ -73,7 +73,7 @@ public class LaboratuvarController {
         }
 
         sonuclarListesi.add(new TestSonucu(t, h, s, r, b));
-        verileriKaydet(); // Ekleme sonrası kaydet
+        verileriKaydet(); 
 
         txtTestAdi.clear(); txtHastaAdi.clear(); txtSonucDegeri.clear(); txtReferansAraligi.clear(); txtBirim.clear();
         lblDurumMesaji.setText("Eklendi.");
@@ -84,7 +84,7 @@ public class LaboratuvarController {
         TestSonucu secili = tableViewSonuclar.getSelectionModel().getSelectedItem();
         if (secili != null) {
             sonuclarListesi.remove(secili);
-            verileriKaydet(); // Silme sonrası kaydet
+            verileriKaydet(); 
             lblDurumMesaji.setText("Silindi.");
         }
     }
@@ -115,4 +115,5 @@ public class LaboratuvarController {
             }
         } catch (Exception e) { e.printStackTrace(); }
     }
+
 }
